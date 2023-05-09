@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/common.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css" />
+    <script src="../assets/js/ui.js"></script>
+    <title>트렌스코스모스코리아 | 컴포넌트</title>
+  </head>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .autoplay-progress {
+      position: absolute;
+      right: 50%;
+      bottom: 70px;
+      z-index: 10;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--swiper-theme-color);
+      margin-right: -28px;
+    }
+    .autoplay-progress::after {
+      content: "";
+      display: block;
+      width: 55px;
+      height: 55px;
+      border: 1px solid #fff;
+      opacity: 0.4;
+      border-radius: 100%;
+    }
+
+    .autoplay-progress svg {
+      --progress: 0;
+      position: absolute;
+      left: 0;
+      top: 0px;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      stroke-width: 1px;
+      stroke: #fff;
+      fill: none;
+      stroke-dashoffset: calc(170 * (1 - var(--progress)));
+      stroke-dasharray: 170;
+      transform: rotate(-90deg);
+    }
+    .scroll-down {
+      display: block;
+      background: url(../assets/images/arr_white_paging.png) no-repeat;
+      background-size: contain;
+      width: 14px;
+      height: 12px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .playbtn {
+      color: #fff;
+      font-size: 50px;
+      position: relative;
+      padding: 20px;
+      z-index: 5;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  </style>
+  <body>
+    <nav class="skip-nav"></nav>
+    <header>
+      <h1 class="logo">
+        <a href="javascript:void(0)" aria-label="Trans Cosmos Korea"></a>
+      </h1>
+      <nav class="gnb sub" aria-label="global navigation 입니다.">
+        <ul class="depth-01">
+          <li class="">
+            <a href="">기업소개</a>
+            <div class="test">
+              <ul class="depth-02">
+                <li><a href="">기업개요</a></li>
+                <li><a href="">CEO 인사말</a></li>
+                <li><a href="">연혁&수상·인증</a></li>
+                <li><a href="">고객사</a></li>
+                <li><a href="">CI 소개</a></li>
+                <li><a href="">오시는 길</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="">사업분야</a>
+            <div class="test">
+              <ul class="depth-02">
+                <li><a href="">IT/솔루션 개발</a></li>
+                <li><a href="">컨택센터</a></li>
+                <li><a href="">필드서비스</a></li>
+                <li><a href="">백오피스</a></li>
+                <li><a href="">다이렉트메일</a></li>
+                <li><a href="">EC/DX</a></li>
+                <li><a href="">교육 컨설팅</a></li>
+                <li><a href="">평생교육원</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="">가치실현</a>
+            <div class="test">
+              <ul class="depth-02">
+                <li><a href="">사회공헌</a></li>
+                <li><a href="">친환경 </a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="">뉴스</a>
+            <div class="test">
+              <ul class="depth-02">
+                <li><a href="">뉴스센터</a></li>
+                <li><a href="">홍보자료</a></li>
+                <li><a href="">SNS</a></li>
+                <li><a href="">공지사항</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="">인재채용</a>
+            <div class="test">
+              <ul class="depth-02">
+                <li><a href="">인재육성</a></li>
+                <li><a href="">복지제도</a></li>
+                <li><a href="">채용정보</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <nav class="user-menu">
+        <div class="language-menu">
+          <!-- <button
+            type="button"
+            class="btn-language"
+            aria-label="language 버튼"
+          ></button> -->
+          <a href="" class="btn-language"></a>
+          <div class="list">
+            <ul class="">
+              <li><a href="javascript:void(0)">KO</a></li>
+              <li><a href="javascript:void(0)">EN</a></li>
+              <li><a href="javascript:void(0)">JP</a></li>
+            </ul>
+          </div>
+        </div>
+        <button type="button" class="ham" aria-label="전체 메뉴 버튼"></button>
+        <div class="site-menu">
+          <dl>
+            <dt><a href="">기업소개</a></dt>
+            <div class="dd-box">
+              <dd><a href="">기업개요</a></dd>
+              <dd><a href="">CEO 인사말</a></dd>
+              <dd><a href="">연혁&수상·인증</a></dd>
+              <dd><a href="">고객사</a></dd>
+              <dd><a href="">CI 소개</a></dd>
+              <dd><a href="">오시는 길</a></dd>
+            </div>
+          </dl>
+          <dl>
+            <dt><a href="">사업분야</a></dt>
+            <div class="dd-box">
+              <dd><a href="">IT/솔루션 개발</a></dd>
+              <dd><a href="">컨택센터</a></dd>
+              <dd><a href="">필드서비스</a></dd>
+              <dd><a href="">백오피스</a></dd>
+              <dd><a href="">다이렉트메일</a></dd>
+              <dd><a href="">EC/DX</a></dd>
+              <dd><a href="">교육 컨설팅</a></dd>
+              <dd><a href="">평생교육원</a></dd>
+            </div>
+          </dl>
+          <dl>
+            <dt><a href="">가치실현</a></dt>
+            <div class="dd-box">
+              <dd><a href="">사회공헌</a></dd>
+              <dd><a href="">친환경 </a></dd>
+            </div>
+          </dl>
+          <dl>
+            <dt><a href="">뉴스</a></dt>
+            <div class="dd-box">
+              <dd><a href="">뉴스센터</a></dd>
+              <dd><a href="">홍보자료</a></dd>
+              <dd><a href="">SNS</a></dd>
+              <dd><a href="">공지사항</a></dd>
+            </div>
+          </dl>
+          <dl>
+            <dt><a href="">인재채용</a></dt>
+            <div class="dd-box">
+              <dd><a href="">인재육성</a></dd>
+              <dd><a href="">복지제도</a></dd>
+              <dd><a href="">채용정보</a></dd>
+            </div>
+          </dl>
+          <dl class="sns-group">
+            <dd><a href="">Facebook</a></dd>
+            <dd><a href="">Blog / Post</a></dd>
+            <dd><a href="">YouTube</a></dd>
+            <dd><a href="">Instagram</a></dd>
+          </dl>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <div class="visual-content">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide bg-img">
+              <img src="../assets/images/dark_bg.png" alt="" class="main_bg" />
+            </div>
+            <div class="swiper-slide bg-img">
+              <img src="../assets/images/dark_bg.png" alt="" class="main_bg" />
+            </div>
+            <div class="swiper-slide bg-img">
+              <img src="../assets/images/dark_bg.png" alt="" class="main_bg" />
+            </div>
+          </div>
+          <a href="javascript:void(0)" class="swiper-button-next"></a>
+          <a href="javascript:void(0)" class="swiper-button-prev"></a>
+          <div class="control-box">
+            <div class="swiper-pagination"></div>
+            <div class="active-txt">
+              <span class="num"></span>
+              <p class="txt"></p>
+            </div>
+            <a href="javascript:void(0)" class="play-btn play"></a>
+          </div>
+          <a href="#subContent" class="autoplay-progress">
+            <svg viewBox="0 0 56 56">
+              <circle cx="28" cy="28" r="27"></circle>
+            </svg>
+            <span class="scroll-down"></span>
+          </a>
+        </div>
+      </div>
+      <div id="subContent" class="sub-content">
+        <div class="g_component">
+          안녕하세요
+          <div class="tab-container">
+            <ul class="tab-list" role="tablist">
+              <li class="tab-item active" role="presentation">
+                <a
+                  href="#tab1"
+                  id="tab1-tab"
+                  class="tab-link active"
+                  role="tab"
+                  aria-controls="tab1"
+                  aria-selected="true"
+                  >전체</a
+                >
+              </li>
+              <li class="tab-item" role="presentation">
+                <a
+                  href="#tab1"
+                  id="tab1-tab"
+                  class="tab-link"
+                  role="tab"
+                  aria-controls="tab1"
+                  aria-selected="true"
+                  >탭메뉴1</a
+                >
+              </li>
+              <li class="tab-item" role="presentation">
+                <a
+                  href="#tab2"
+                  id="tab2-tab"
+                  class="tab-link"
+                  role="tab"
+                  aria-controls="tab2"
+                  aria-selected="false"
+                  >탭메뉴2</a
+                >
+              </li>
+              <li class="tab-item" role="presentation">
+                <a
+                  href="#tab3"
+                  id="tab3-tab"
+                  class="tab-link"
+                  role="tab"
+                  aria-controls="tab3"
+                  aria-selected="false"
+                  >탭메뉴3</a
+                >
+              </li>
+            </ul>
+            <!-- <div class="tab-content">
+							<div id="tab1" class="tab-pane" role="tabpanel" aria-labelledby="tab1-tab" aria-hidden="false">
+									<p>탭 1의 내용</p>
+							</div>
+							<div id="tab2" class="tab-pane" role="tabpanel" aria-labelledby="tab2-tab" aria-hidden="true">
+									<p>탭 2의 내용</p>
+							</div>
+							<div id="tab3" class="tab-pane" role="tabpanel" aria-labelledby="tab3-tab" aria-hidden="true">
+									<p>탭 3의 내용</p>
+							</div>
+					</div> -->
+          </div>
+        </div>
+        <div class="g_component">
+          <form class="ui-form">
+            <label for="uiSelect01" class="form-label sr-only"
+              >선택하세요</label
+            >
+            <select id="uiSelect02" class="form-set form-select" name="select">
+              <option value="option1">전체</option>
+              <option value="option2">옵션 1</option>
+              <option value="option3">옵션 2</option>
+              <option value="option3">옵션 3</option>
+            </select>
+            <div class="input-group">
+              <input type="text" title="" class="form-set" />
+              <button type="button" aria-label="검색"></button>
+            </div>
+          </form>
+        </div>
+        <div class="g_component">
+          <form class="ui-form">
+            <div class="input-group">
+              <input type="text" title="" class="form-set" />
+              <button type="button" aria-label="검색"></button>
+            </div>
+          </form>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn b-round def">Button</button>
+          <a href="javascript:void(0)" class="btn b-round def">Button</a>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn b-round list">목록</button>
+          <a href="javascript:void(0)" class="btn b-round list">목록</a>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn more">더보기</button>
+          <a href="javascript:void(0)" class="btn more">더보기</a>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn t-detail">자세히</button>
+          <a href="javascript:void(0)" class="btn t-detail">자세히</a>
+        </div>
+        <div class="g_component">
+          <button
+            type="button"
+            class="btn t-dwload01 b-round"
+            aria-label="다운로드"
+          >
+            AI 다운로드
+          </button>
+        </div>
+        <div class="g_component">
+          <button
+            type="button"
+            class="btn t-dwload02 b-round"
+            aria-label="다운로드"
+          ></button>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn toggle arr-up"></button>
+          <button type="button" class="btn toggle arr-down"></button>
+        </div>
+        <div class="g_component">
+          <button type="button" class="btn play" aria-label="재생버튼"></button>
+          <button type="button" class="btn toggle arr-down"></button>
+        </div>
+        <!-- board type01-->
+        <div class="g_component">
+          <ul class="board t-news">
+            <li class="board-item">
+              <a href="javascript:void(0)">
+                <figure class="dummy">
+                  <img src="../assets/images/img.png" alt="" />
+                </figure>
+                <div class="inner">
+                  <span class="sub-txt">뉴스유형</span>
+                  <p class="news-tit">
+                    트랜스코스모스코리아, 제22기 결산공고트랜스코스모스코리아,
+                    제22기 결산공고트랜스코스모스코리아, 제22기
+                    결산공고트랜스코스모스코리아, 제22기
+                    결산공고트랜스코스모스코리아, 제22기
+                    결산공고트랜스코스모스코리아, 제22기 결산공고
+                  </p>
+                  <span class="date">2023.03.31</span>
+                </div>
+              </a>
+            </li>
+            <li class="board-item">
+              <a href="javascript:void(0)">
+                <figure class="dummy">
+                  <img src="" alt="" />
+                </figure>
+                <div class="inner">
+                  <span class="sub-txt">뉴스유형</span>
+                  <p class="news-tit">트랜스코스모스코리아, 제22기 결산공고</p>
+                  <span class="date">2023.03.31</span>
+                </div>
+              </a>
+            </li>
+            <li class="board-item">
+              <a href="javascript:void(0)">
+                <figure class="dummy">
+                  <img src="" alt="" />
+                </figure>
+                <div class="inner">
+                  <span class="sub-txt">뉴스유형</span>
+                  <p class="news-tit">트랜스코스모스코리아, 제22기 결산공고</p>
+                  <span class="date">2023.03.31</span>
+                </div>
+              </a>
+            </li>
+            <li class="board-item">
+              <a href="javascript:void(0)">
+                <figure class="dummy">
+                  <img src="" alt="" />
+                </figure>
+                <div class="inner">
+                  <span class="sub-txt">뉴스유형</span>
+                  <p class="news-tit">트랜스코스모스코리아, 제22기 결산공고</p>
+                  <span class="date">2023.03.31</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- board  type02-->
+        <div class="g_component">
+          <table class="board t-line t-dwl">
+            <caption></caption>
+            <colgroup>
+              <col />
+              <col style="width: 62.5%" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr class="board-item">
+                <td class="cell"><span class="sub-txt">기업정보</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.
+                  </p>
+                  <span class="date">2023. 03. 31</span>
+                </td>
+                <td class="cell">
+                  <button
+                    type="button"
+                    class="btn t-dwload02 b-round"
+                    aria-label="다운로드"
+                  ></button>
+                </td>
+              </tr>
+              <tr class="board-item">
+                <td class="cell"><span class="sub-txt">기업정보</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리 됩니다.
+                  </p>
+                  <span class="date">2023. 03. 31</span>
+                </td>
+                <td class="cell">
+                  <button
+                    type="button"
+                    class="btn t-dwload02 b-round"
+                    aria-label="다운로드"
+                  ></button>
+                </td>
+              </tr>
+              <tr class="board-item">
+                <td class="cell"><span class="sub-txt">기업정보</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리 됩니다.
+                  </p>
+                  <span class="date">2023. 03. 31</span>
+                </td>
+                <td class="cell">
+                  <button
+                    type="button"
+                    class="btn t-dwload02 b-round"
+                    aria-label="다운로드"
+                  ></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- board  type03-->
+        <div class="g_component">
+          <table class="board t-line t-num">
+            <caption></caption>
+            <colgroup>
+              <col />
+              <col style="width: 62.32%" />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr class="board-item">
+                <td class="cell"><span class="list-num">1</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리
+                    됩니다.
+                  </p>
+                </td>
+                <td class="cell">
+                  <span class="date">2023. 03. 31</span>
+                </td>
+              </tr>
+              <tr class="board-item">
+                <td class="cell"><span class="list-num">2</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리 됩니다.
+                  </p>
+                </td>
+                <td class="cell">
+                  <span class="date">2023. 03. 31</span>
+                </td>
+              </tr>
+              <tr class="board-item">
+                <td class="cell"><span class="list-num">3</span></td>
+                <td class="cell cent">
+                  <p class="tit">
+                    제목이 최대 1줄까지 노출됩니다. 1줄이후로는 ...처리 됩니다.
+                  </p>
+                </td>
+                <td class="cell">
+                  <span class="date">2023. 03. 31</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- boar paging -->
+        <div class="g_component">
+          <div class="paging">
+            <a
+              href=""
+              role="button"
+              class="btn prev"
+              aria-label="게시판 이전 페이지"
+              aria-disabled="true"
+            ></a>
+            <ul class="paging-inner">
+              <li>
+                <a href="" role="button" class="btn"></a>
+              </li>
+              <li>
+                <a href="" role="button" class="btn"></a>
+              </li>
+              <li>
+                <a href="" role="button" class="btn"></a>
+              </li>
+              <li>
+                <a href="" role="button" class="btn"></a>
+              </li>
+            </ul>
+            <a
+              href=""
+              role="button"
+              class="btn prev"
+              aria-label="게시판 다음 페이지"
+              aria-disabled="false"
+            ></a>
+          </div>
+        </div>
+        <div class="g_component">
+          <div></div>
+        </div>
+      </div>
+      <!-- // sub-content -->
+    </main>
+    <script src="../assets/js/swiper-bundle.min.js"></script>
+  </body>
+</html>
